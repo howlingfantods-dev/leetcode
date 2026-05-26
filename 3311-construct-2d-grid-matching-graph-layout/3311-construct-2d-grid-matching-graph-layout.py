@@ -16,14 +16,11 @@ class Solution:
             if len(val) == min_edge_count:
                 corners.append(key)
                      
-        # first row 
         layer = [corners.pop()]
-        while True:
-            # previous node in same row
+        foo = -1
+        while foo == -1:
             prev = layer[-1]
-            # all the neighbors besides 
             nei = [el for el in adj[prev] if el != prev]
-            # length of the first neighbor and first nod
             sm = len(adj[nei[0]])
             node = nei[0]
             for ne in nei: 
@@ -33,7 +30,8 @@ class Solution:
             adj[node].remove(prev)
             adj[prev].remove(node)
             layer.append(node)
-            if node in corners: break
+            if node in corners:
+                foo = 2
         
         answer = [layer]
         m = len(layer)
@@ -42,7 +40,6 @@ class Solution:
             layer = []
             for c in range(m):
                 top = answer[r-1][c]
-                print(top, adj[top])
                 assert len(adj[top]) == 1
                 curr = list(adj[top])[0]
                 layer.append(curr)
