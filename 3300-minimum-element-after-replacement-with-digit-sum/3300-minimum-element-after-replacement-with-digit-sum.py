@@ -1,12 +1,6 @@
 class Solution:
     def minElement(self, nums: List[int]) -> int:
-        ans = inf
-        for i in range(len(nums)):
-            res = 0
-            n = nums[i]
-            while n > 0:
-                res += n % 10
-                n//=10 
-            ans = min(ans,res)
-        return ans
-                
+        def dfs(n):
+            if n == 0: return 0
+            return n % 10 + dfs(n//10)
+        return min(dfs(n) for n in nums)
